@@ -24,39 +24,46 @@ const App = () => {
 
     return (
         <div>
-            <div className="box">
-                <h1 className="title title-strong-weight is-spaced has-text-black">
-                    React Todo App
-                </h1>
-                <h2 className="subtitle">
-                    Manage your tasks.
-                </h2>
-            </div>
-            <Form
-                addTodo={(e) => {
-                    e.preventDefault();
-                    if (e.target.title.value !== "") {
-                        todoDispatch({
-                            type: "add",
-                            title: e.target.title.value,
-                            createdAt: dateToFormatString(
-                                new Date(),
-                                '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
-                        });
-                        e.target.title.value = "";
-                    }
-                }}
+            <section className="hero is-primary">
+                <div className="hero-body">
+                    <div className="container">
+                        <h1 className="title is-bold">
+                            React Todo App
+                        </h1>
+                        <h2 className="subtitle">
+                            Manage your tasks.
+                        </h2>
+                    </div>
+                </div>
+            </section>
 
-            />
-            <List
-                todoList={todoList}
-                removeTodo={(removeId) => {
-                    todoDispatch({
-                        type: "remove",
-                        removeId: removeId
-                    });
-                }}
-            />
+            <section className="section">
+                <Form
+                    addTodo={(e) => {
+                        e.preventDefault();
+                        if (e.target.title.value !== "") {
+                            todoDispatch({
+                                type: "add",
+                                title: e.target.title.value,
+                                createdAt: dateToFormatString(
+                                    new Date(),
+                                    '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
+                            });
+                            e.target.title.value = "";
+                        }
+                    }}
+
+                />
+                <List
+                    todoList={todoList}
+                    removeTodo={(removeId) => {
+                        todoDispatch({
+                            type: "remove",
+                            removeId: removeId
+                        });
+                    }}
+                />
+            </section>
         </div>
     );
 };
