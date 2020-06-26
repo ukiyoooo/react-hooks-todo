@@ -35,14 +35,16 @@ const App = () => {
             <Form
                 addTodo={(e) => {
                     e.preventDefault();
-                    todoDispatch({
-                        type: "add",
-                        title: e.target.title.value,
-                        createdAt: dateToFormatString(
-                            new Date(),
-                            '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
-                    });
-                    e.target.title.value = "";
+                    if (e.target.title.value !== "") {
+                        todoDispatch({
+                            type: "add",
+                            title: e.target.title.value,
+                            createdAt: dateToFormatString(
+                                new Date(),
+                                '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
+                        });
+                        e.target.title.value = "";
+                    }
                 }}
 
             />
