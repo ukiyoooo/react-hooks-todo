@@ -24,6 +24,29 @@ const App = () => {
 
     return (
         <div>
+            <header class="navbar">
+                <div class="navbar-brand">
+                    <span class="navbar-item">
+                        <span class="far fa-list-alt"></span> React ToDo
+                    </span>
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input class="input" type="text" name="search" placeholder="Search" />
+                            </div>
+                            <div class="control">
+                                <a class="button is-info"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <a href="#"><i class="fa fa-user"></i>Login</a>
+                </div>
+            </header>
+
             <section className="hero is-primary">
                 <div className="hero-body">
                     <div className="container">
@@ -37,34 +60,43 @@ const App = () => {
                 </div>
             </section>
 
-            <section className="section">
-                <Form
-                    addTodo={(e) => {
-                        e.preventDefault();
-                        if (e.target.title.value !== "") {
-                            todoDispatch({
-                                type: "add",
-                                title: e.target.title.value,
-                                createdAt: dateToFormatString(
-                                    new Date(),
-                                    '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
-                            });
-                            e.target.title.value = "";
-                        }
-                    }}
+            <main className="columns">
 
-                />
-                <List
-                    todoList={todoList}
-                    removeTodo={(removeId) => {
-                        todoDispatch({
-                            type: "remove",
-                            removeId: removeId
-                        });
-                    }}
-                />
-            </section>
-        </div>
+                <div className="submenu column is-3">
+
+                </div>
+
+                <div className="column">
+                    <section className="section">
+                        <Form
+                            addTodo={(e) => {
+                                e.preventDefault();
+                                if (e.target.title.value !== "") {
+                                    todoDispatch({
+                                        type: "add",
+                                        title: e.target.title.value,
+                                        createdAt: dateToFormatString(
+                                            new Date(),
+                                            '%YYYY%-%MM%-%DD%-%HH%-%mm%-%ss%')
+                                    });
+                                    e.target.title.value = "";
+                                }
+                            }}
+
+                        />
+                        <List
+                            todoList={todoList}
+                            removeTodo={(removeId) => {
+                                todoDispatch({
+                                    type: "remove",
+                                    removeId: removeId
+                                });
+                            }}
+                        />
+                    </section>
+                </div>
+            </main>
+        </div >
     );
 };
 
