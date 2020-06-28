@@ -2,10 +2,10 @@ export function generateUniqueID() {
     // Math.random should be unique because of its seeding algorithm.
     // Convert it to base 36 (numbers + letters), and grab the first 9 characters
     // after the decimal.
-    return '_' + Math.random().toString(36).substr(2, 9);
+    return Math.random().toString(36).substr(2, 9);
 };
 
-export function dateToFormatString(date, fmt, locale, pad) {
+export function dateToFormatString(date: Date, fmt: string, locale: string = "ja-JP", pad: string = "0") {
     // %fmt% を日付時刻表記に。
     // 引数
     //  date:  Dateオブジェクト
@@ -33,19 +33,17 @@ export function dateToFormatString(date, fmt, locale, pad) {
     // %s%:秒（9）
     // %W%:曜日の長い表記（水曜日）
     // %w%:曜日の短い表記（水）
-    var padding = function (n, d, p) {
-        p = p || '0';
+    var padding = function (n: number, d: number, p: string) {
         return (p.repeat(d) + n).slice(-d);
     };
-    var DEFAULT_LOCALE = 'ja-JP';
-    var getDataByLocale = function (locale, obj, param) {
-        var array = obj[locale] || obj[DEFAULT_LOCALE];
+    var getDataByLocale = function (locale: string, obj: { [key: string]: string[] }, param: number) {
+        var array = obj[locale];
         return array[param];
     };
-    var format = {
+    var format: { [key: string]: Function } = {
         'YYYY': function () { return padding(date.getFullYear(), 4, pad); },
         'YY': function () { return padding(date.getFullYear() % 100, 2, pad); },
-        'MMMM': function (locale) {
+        'MMMM': function (locale: string) {
             var month = {
                 'ja-JP': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 'en-US': ['January', 'February', 'March', 'April', 'May', 'June',
@@ -53,7 +51,7 @@ export function dateToFormatString(date, fmt, locale, pad) {
             };
             return getDataByLocale(locale, month, date.getMonth());
         },
-        'MMM': function (locale) {
+        'MMM': function (locale: string) {
             var month = {
                 'ja-JP': ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 'en-US': ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June',
@@ -76,21 +74,21 @@ export function dateToFormatString(date, fmt, locale, pad) {
         'A': function () {
             return date.getHours() < 12 ? 'AM' : 'PM';
         },
-        'a': function (locale) {
+        'a': function (locale: string) {
             var ampm = {
                 'ja-JP': ['午前', '午後'],
                 'en-US': ['am', 'pm'],
             };
             return getDataByLocale(locale, ampm, date.getHours() < 12 ? 0 : 1);
         },
-        'W': function (locale) {
+        'W': function (locale: string) {
             var weekday = {
                 'ja-JP': ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
                 'en-US': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             };
             return getDataByLocale(locale, weekday, date.getDay());
         },
-        'w': function (locale) {
+        'w': function (locale: string) {
             var weekday = {
                 'ja-JP': ['日', '月', '火', '水', '木', '金', '土'],
                 'en-US': ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
@@ -104,7 +102,7 @@ export function dateToFormatString(date, fmt, locale, pad) {
     })
     var re = new RegExp('%(' + fmtstr.join('|') + ')%', 'g');
     // /%(|YYYY|YY|MMMM|...W|w)%/g のような正規表現が生成される。
-    var replaceFn = function (match, fmt) {
+    var replaceFn = function (match: string, fmt: string) {
         // match には%YYYY%などのマッチした文字列が、fmtにはYYYYなどの%を除くフォーマット文字列が入る。
         if (fmt === '') {
             return '%';

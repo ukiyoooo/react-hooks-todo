@@ -1,6 +1,6 @@
 import React from "react";
 
-const Title = (props) => (
+const Title: React.FC = () => (
     <section className="hero is-primary">
         <div className="hero-body">
             <div className="container">
@@ -9,7 +9,7 @@ const Title = (props) => (
                         </h1>
                 <h2 className="subtitle">
                     Manage your tasks.
-                        </h2>
+                </h2>
             </div>
         </div>
     </section>
