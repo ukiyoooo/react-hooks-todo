@@ -16,7 +16,7 @@ const Form: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className="container">
+        <div className="container mb-5">
             <form className="box" onSubmit={handleSubmit}>
                 <label className="label is-large">
                     Add a task
