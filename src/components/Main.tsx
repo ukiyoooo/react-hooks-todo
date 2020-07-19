@@ -47,11 +47,11 @@ const Main: React.FC = () => {
 
     return (
         <main className="columns">
-            <div className="submenu column is-2">
+            <div className="submenu column is-3">
             </div>
 
             <div className="column">
-                <section className="section">
+                <section className="container is-fluid">
                     <Form
                         addTodo={
                             (event: FormEvent<HTMLFormElement>, inputValue: string) => {
